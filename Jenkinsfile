@@ -2,21 +2,7 @@ pipeline {
   options {
     buildDiscarder(logRotator(numToKeepStr: '5', artifactNumToKeepStr: '0'))
   }
-  agent {
-    kubernetes {
-      //cloud 'kubernetes'
-      yaml """
-apiVersion: v1
-kind: Pod
-spec:
-  containers:
-  - name: maven
-    image: danielrmartin/sko:1.2
-    command: ['cat']
-    tty: true
-"""
-    }
-  }
+  agent any
   parameters {
     choice(
       choices: ['deploy' , 'release'],
