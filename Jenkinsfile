@@ -15,6 +15,9 @@ pipeline {
   stages {
     stage('Run Maven') {
       steps {
+        script{
+          properties([[$class: 'JiraProjectProperty', siteName: 'https://testsitejavi.atlassian.net/'], [$class: 'DatadogJobProperty', tagFile: '', tagProperties: ''], [$class: 'RebuildSettings', autoRebuild: false, rebuildDisabled: false], [$class: 'JobRestrictionProperty'], pipelineTriggers([pollSCM('')])])
+        }
           sh 'mvn deploy -f ./complete/pom.xml'
       }
     }
