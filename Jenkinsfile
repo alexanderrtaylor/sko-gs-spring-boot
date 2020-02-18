@@ -4,6 +4,7 @@ pipeline {
   }
   agent {
     label {"maven"}
+  }
   parameters {
     choice(
       choices: ['deploy' , 'release'],
