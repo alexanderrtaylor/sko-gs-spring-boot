@@ -3,7 +3,7 @@ pipeline {
     buildDiscarder(logRotator(numToKeepStr: '5', artifactNumToKeepStr: '0'))
   }
   agent {
-    label {"maven"}
+    label 'maven'
   }
   parameters {
     choice(
