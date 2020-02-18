@@ -18,12 +18,12 @@ pipeline {
         script{
           properties([[$class: 'JiraProjectProperty', siteName: 'https://testsitejavi.atlassian.net/'], [$class: 'DatadogJobProperty', tagFile: '', tagProperties: ''], [$class: 'RebuildSettings', autoRebuild: false, rebuildDisabled: false], [$class: 'JobRestrictionProperty'], pipelineTriggers([pollSCM('')])])
         }
-          sh 'mvn deploy -f ./complete/pom.xml'
+          sh 'mvn deploy -f ./complete/pom.xml -DskipTests'
       }
     }
     stage ('Run Sonarqube'){
       steps{
-          sh 'mvn sonar:sonar -f ./complete/pom.xml'
+          sh 'mvn sonar:sonar -f ./complete/pom.xml -DskipTests'
         }
     }
   }
