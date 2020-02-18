@@ -2,7 +2,8 @@ pipeline {
   options {
     buildDiscarder(logRotator(numToKeepStr: '5', artifactNumToKeepStr: '0'))
   }
-  agent any
+  agent {
+    label {"maven"}
   parameters {
     choice(
       choices: ['deploy' , 'release'],
@@ -13,16 +14,14 @@ pipeline {
   stages {
     stage('Run Maven') {
       steps {
-        container('maven') {
           sh 'mvn deploy -f ./complete/pom.xml'
-        }
       }
     }
     stage ('Run Sonarqube'){
       steps{
-        container('maven'){
           sh 'mvn sonar:sonar -f ./complete/pom.xml'
-        }}}
+        }
+    }
   }
   post {
     success {
